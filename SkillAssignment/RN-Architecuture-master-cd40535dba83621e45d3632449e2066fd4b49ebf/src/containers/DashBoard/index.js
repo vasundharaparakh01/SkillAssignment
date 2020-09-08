@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {manageComponentStats} from '../../actions/componentStats';
 import withLoadingScreen from './../../hoc/withLoadingScreen';
+import axiosConfig from '../../utils/AxiosConfig';
 
 const Dashboard = lazy(() => import('../../components/Dashboard'));
 
@@ -21,20 +22,14 @@ class DashBoard extends Component {
       'Home',
       this.props.componentStats,
     );
-    console.log('Hellooooo')
-    fetch('https://mean.stagingsdei.com:6047/category/pagination?perPage=10&page=1')
-    .then(response => response.json())
-    .then((responseJson) => {
-        console.log('getting data from fetch', responseJson)
-        setTimeout(() => {
-            this.setState({
-                //loading: false,
-                //dataSource: responseJson
-            })
-        }, 2000)
-
-    })
-    .catch(error => console.log(error))
+    axiosConfig
+      .get(
+        'https://mean.stagingsdei.com:6047/category/pagination?perPage=10&page=1',
+      )
+      .then(response => {
+        console.log('response');
+        console.log(response);
+      });
   }
 
   render() {
