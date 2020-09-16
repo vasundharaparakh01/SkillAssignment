@@ -2,6 +2,7 @@
 /* eslint-disable eslint-comments/no-unused-disable */
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
+import {Alert} from 'react-native';
 
 //Also need to change base url in App.js File
 
@@ -37,6 +38,7 @@ instance.interceptors.request.use(
   error => {
     console.log(' *************** Error Response *****************');
     console.log(JSON.stringify(error));
+    alert(JSON.stringify(error))
     console.log(' *************** End of Error Response *****************');
     return Promise.reject(error);
   },

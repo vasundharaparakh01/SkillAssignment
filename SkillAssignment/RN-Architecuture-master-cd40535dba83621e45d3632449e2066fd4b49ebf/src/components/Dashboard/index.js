@@ -53,10 +53,18 @@ function Dashboard(props) {
   const [password, setPassword] = useState('');
   const authReducer = useSelector(state => state.authReducer);
   const {onLogin, isLoggedIn, onRegister,onPressProductTab} = props;
-  const {isLoading} = authReducer;
+  //const {isLoading} = authReducer;
+  // const productReducer = useSelector(state => state.productReducer);
+  // const {isLoading,responseData} = productReducer;
+  //  console.log('Table items-----');
+  //  console.log(productReducer);
+
+
+
   return (
     <View style={{ flex: 0.8, paddingBottom: 0,marginTop:0 }}>
             <Text style={{marginTop: 0, fontSize: 24, textAlign: 'center'}}>Product List</Text>
+
 
         <FlatList
           // style={{ marginBottom: 20 }}

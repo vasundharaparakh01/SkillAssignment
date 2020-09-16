@@ -7,6 +7,7 @@ import {Alert, StatusBar, StyleSheet, View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators, compose} from 'redux';
 import {goHome, goToAuth} from '@config/navigation';
+import axiosConfig from '../../../utils/AxiosConfig';
 
 const RegisterComponent = lazy(() =>
   import('../../../components/Auth/Register'),
@@ -31,7 +32,21 @@ class Register extends Component {
     );
   }
 
-  _onPressSignup = (email, password) => {
+  /*
+    const [fName, setFName] = useState('');
+  const [lName, setLName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [country, setCountry] = useState('');
+  const [zip, setZip] = useState('');
+
+  */
+  _onPressSignup = (fName,lName,email, password,role,phone,address,city,state,country,zip) => {
     /*
     let requestPayload = {
       email: email,
@@ -39,7 +54,19 @@ class Register extends Component {
     };
     this.props.AuthActions.signup(requestPayload);
     */
+
+  axiosConfig
+  .post(
+    'https://mean.stagingsdei.com:6047/user/register',{firstname:fName,lastname:lName,email: email,password: password,role: role,phone:phone,address:address,city:city,state:state,country:country,zip:zip}
+  )
+  .then(response => {
+    console.log('------------------');
+    console.log(response.data);
+    const responseData = response.data.data.data;
+    this.setState({data: responseData});
+    console.log(this.state.data);
     goHome();
+  });
   };
 
   render() {

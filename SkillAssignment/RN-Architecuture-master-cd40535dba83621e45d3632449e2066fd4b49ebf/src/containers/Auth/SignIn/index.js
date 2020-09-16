@@ -10,6 +10,10 @@ import {Alert, StatusBar, StyleSheet, View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators, compose} from 'redux';
 import {goHome, goToAuth} from '../../../config/navigation';
+import axiosConfig from '../../../utils/AxiosConfig';
+import constants from '../../../constants';
+//import {UIActivityIndicator} from 'react-native-indicators';
+
 
 const SignInComponent = lazy(() => import('../../../components/Auth/SignIn'));
 
@@ -32,10 +36,28 @@ class SignIn extends Component {
     );
   }
 
+  
   _onPressLogin = (email, password) => {
-    console.log(email, password, 'email, password', getUsers);
-    this.props.getUsers();
-    goHome();
+    console.log(email, password, 'email, password');
+    const postData = {
+      email: email,
+      password: password,
+      role: '4',
+    };
+
+    axiosConfig
+    .post(
+      'https://mean.stagingsdei.com:6047/user/login',{email: email,password: password,role: '4'}
+    )
+    .then(response => {
+      console.log('------------------');
+      console.log(response.data);
+      const responseData = response.data.data.data;
+      this.setState({data: responseData});
+      console.log(this.state.data);
+      goHome();
+    })
+    
   };
 
   _onPressRegister = () => {
